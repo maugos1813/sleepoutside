@@ -1,27 +1,39 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
-import ProductData from "./ProductData.mjs";
+// import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+// import ProductData from "./ProductData.mjs";
 
-const dataSource = new ProductData("tents");
+// const dataSource = new ProductData("tents");
+
+// // function addProductToCart(product) {
+// //   setLocalStorage("so-cart", product);
+// // }
 
 // function addProductToCart(product) {
-//   setLocalStorage("so-cart", product);
+//   let cartItems = getLocalStorage("so-cart") || [];
+
+//   cartItems.push(product);
+
+//   setLocalStorage("so-cart", cartItems);
 // }
 
-function addProductToCart(product) {
-  let cartItems = getLocalStorage("so-cart") || [];
+// // add to cart button event handler
+// async function addToCartHandler(e) {
+//   const product = await dataSource.findProductById(e.target.dataset.id);
+//   addProductToCart(product);
+// }
 
-  cartItems.push(product);
+// // add listener to Add to Cart button
+// document
+//   .getElementById("addToCart")
+//   .addEventListener("click", addToCartHandler);
 
-  setLocalStorage("so-cart", cartItems);
-}
+import { getParam } from './utils.mjs';
+import ProductData from './ProductData.mjs';
+import ProductDetails from './ProductDetails.mjs';
 
-// add to cart button event handler
-async function addToCartHandler(e) {
-  const product = await dataSource.findProductById(e.target.dataset.id);
-  addProductToCart(product);
-}
+const productId = getParam('product');
 
-// add listener to Add to Cart button
-document
-  .getElementById("addToCart")
-  .addEventListener("click", addToCartHandler);
+const dataSource = new ProductData('tents');
+
+const product = new ProductDetails(productId, dataSource);
+
+product.init();
